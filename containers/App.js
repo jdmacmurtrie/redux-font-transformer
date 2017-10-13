@@ -1,35 +1,53 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bloat, shrink } from '../actions/sizeAdjust';
+import { Field, reduxForm } from 'redux-form'
+import { change } from '../actions/sizeAdjust';
+import { submit } from '../actions/submit';
+import Form from '../components/formComponent'
+import SubmitButton from '../components/submitButton'
+import Clickable from '../components/clickable'
 
 const App = props => {
   let handleSizeChange = () => {
     if(props.size == 'normal') {
-      props.bloat("bloated")
+      props.change("bloated")
     } else {
-      props.shrink("normal")
+      props.change("normal")
     }
   }
 
+  let handleFormSubmit = (values) => {
+    props.submit(values.textField)
+  }
+
+
+  let allClickables = props.clickables.map(c => {
+    return(
+      <Clickable text={c} className={props.size}/>
+    )
+  })
+
   return (
     <div className="goodStuff" onClick={handleSizeChange}>
-      <div className={props.size}>
-        Click Me!
-      </div>
+      {allClickables}
+
+      <Form onSubmit={handleFormSubmit}/>
+      <SubmitButton />
     </div>
   );
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    bloat: () => dispatch(bloat()),
-    shrink: () => dispatch(shrink())
+    change: (size) => dispatch(change(size)),
+    submit: (submission) => dispatch(submit(submission))
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    size: state.size
+    size: state.sizeAdjust.size,
+    clickables: state.submissions
   }
 }
 
