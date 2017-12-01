@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, reset } from 'redux-form'
 import { change } from '../actions/sizeAdjust';
 import { submit } from '../actions/submit';
 import Form from '../components/formComponent'
@@ -23,12 +23,12 @@ const App = props => {
 
   let allClickables = props.clickables.map(c => {
     return(
-      <Clickable text={c} className={props.size}/>
+      <Clickable text={c} className={props.size} handleSizeChange={handleSizeChange}/>
     )
   })
 
   return (
-    <div className="goodStuff" onClick={handleSizeChange}>
+    <div className="goodStuff" >
       {allClickables}
 
       <Form onSubmit={handleFormSubmit}/>
