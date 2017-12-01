@@ -1,4 +1,4 @@
-import { BLOAT, SHRINK } from '../actions/sizeAdjust'
+import { CHANGE } from '../actions/sizeAdjust'
 
 let initialState = {
   size: 'normal'
@@ -6,13 +6,9 @@ let initialState = {
 
 const sizeAdjust = (state = initialState, action) => {
   switch (action.type) {
-    case SHRINK:
+    case CHANGE:
       return Object.assign({}, state, {
-        size: 'normal'
-      })
-    case BLOAT:
-      return Object.assign({}, state, {
-        size: 'bloated'
+        size: action.size
       })
     default:
       return state;

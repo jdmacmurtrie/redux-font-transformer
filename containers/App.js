@@ -1,35 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bloat, shrink } from '../actions/sizeAdjust';
+import { Field, reduxForm } from 'redux-form'
+
+import { change } from '../actions/sizeAdjust';
+import { addClickable } from '../actions/addClickable';
+
+import AddClickableForm from '../components/addClickableForm'
+import Clickable from '../components/clickable'
 
 const App = props => {
-  let handleSizeChange = () => {
+  let handleSizeChange = (id) => {
     if(props.size == 'normal') {
-      props.bloat("bloated")
+      props.change("bloated")
     } else {
-      props.shrink("normal")
+      props.change("normal")
     }
   }
 
+  let allClickables = props.clickables.map(c => (
+      <Clickable
+        key={c}
+        id={c + 1}
+        text={c}
+        className={props.size}
+        handleSizeChange={handleSizeChange}
+      />
+    )
+  )
+
   return (
-    <div className="goodStuff" onClick={handleSizeChange}>
-      <div className={props.size}>
-        Click Me!
-      </div>
+    <div className="goodStuff" >
+      {allClickables}
+      <AddClickableForm addClickable={props.addClickable}/>
     </div>
   );
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    bloat: () => dispatch(bloat()),
-    shrink: () => dispatch(shrink())
+    change: (size) => dispatch(change(size)),
+    addClickable: (clickables) => dispatch(addClickable(clickables))
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    size: state.size
+    size: state.sizeAdjust.size,
+    clickables: state.addClickable.clickables
   }
 }
 

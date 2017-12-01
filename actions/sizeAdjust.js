@@ -1,18 +1,10 @@
-export const BLOAT = "BLOAT"
-export const SHRINK = "SHRINK"
+export const CHANGE = "CHANGE"
 
-let bloat = (size) => {
+let change = (size) => {
   return {
-    type: BLOAT,
+    type: CHANGE,
     size
   }
 }
 
-let shrink = (size) => {
-  return {
-    type: SHRINK,
-    size
-  }
-}
-
-export { bloat, shrink };
+export { change };
