@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm, reset } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
+
 import { change } from '../actions/sizeAdjust';
-import { submit } from '../actions/submit';
-import Form from '../components/formComponent'
-import SubmitButton from '../components/submitButton'
+import { addClickable } from '../actions/addClickable';
+
+import AddClickableForm from '../components/addClickableForm'
 import Clickable from '../components/clickable'
 
 const App = props => {
@@ -16,27 +17,21 @@ const App = props => {
     }
   }
 
-  let handleFormSubmit = (values) => { props.submit(values.textField)
-  }
-
-  let allClickables = props.clickables.map(c => {
-    return(
+  let allClickables = props.clickables.map(c => (
       <Clickable
-        key={c }
+        key={c}
         id={c + 1}
         text={c}
         className={props.size}
         handleSizeChange={handleSizeChange}
       />
     )
-  })
+  )
 
   return (
     <div className="goodStuff" >
       {allClickables}
-
-      <Form onSubmit={handleFormSubmit}/>
-      <SubmitButton />
+      <AddClickableForm addClickable={props.addClickable}/>
     </div>
   );
 }
@@ -44,14 +39,14 @@ const App = props => {
 const mapDispatchToProps = (dispatch) => {
   return {
     change: (size) => dispatch(change(size)),
-    submit: (submission) => dispatch(submit(submission))
+    addClickable: (clickables) => dispatch(addClickable(clickables))
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     size: state.sizeAdjust.size,
-    clickables: state.submissions
+    clickables: state.addClickable.clickables
   }
 }
 
