@@ -8,7 +8,7 @@ import SubmitButton from '../components/submitButton'
 import Clickable from '../components/clickable'
 
 const App = props => {
-  let handleSizeChange = () => {
+  let handleSizeChange = (id) => {
     if(props.size == 'normal') {
       props.change("bloated")
     } else {
@@ -16,14 +16,18 @@ const App = props => {
     }
   }
 
-  let handleFormSubmit = (values) => {
-    props.submit(values.textField)
+  let handleFormSubmit = (values) => { props.submit(values.textField)
   }
-
 
   let allClickables = props.clickables.map(c => {
     return(
-      <Clickable text={c} className={props.size} handleSizeChange={handleSizeChange}/>
+      <Clickable
+        key={c }
+        id={c + 1}
+        text={c}
+        className={props.size}
+        handleSizeChange={handleSizeChange}
+      />
     )
   })
 
