@@ -9,23 +9,30 @@ import AddClickableForm from '../components/addClickableForm'
 import Clickable from '../components/clickable'
 
 const App = props => {
-  let handleSizeChange = (id) => {
-    if(props.size == 'normal') {
-      props.change("bloated")
+  let handleSizeChange = (selectedId) => {
+    if (selectedId !== props.selectedId) {
+      props.change(selectedId)
     } else {
-      props.change("normal")
+      props.change(null)
     }
   }
 
-  let allClickables = props.clickables.map(c => (
+  let allClickables = props.clickables.map(c => {
+    let size;
+    if (c + 1 == props.selectedId) {
+      size = "bloated"
+    } else {
+      size = "normal"
+    }
+    return(
       <Clickable
         key={c}
         id={c + 1}
         text={c}
-        className={props.size}
+        className={size}
         handleSizeChange={handleSizeChange}
       />
-    )
+    )}
   )
 
   return (
@@ -45,7 +52,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    size: state.sizeAdjust.size,
+    selectedId: state.sizeAdjust.selectedId,
     clickables: state.addClickable.clickables
   }
 }

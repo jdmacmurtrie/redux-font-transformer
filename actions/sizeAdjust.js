@@ -1,9 +1,9 @@
 export const CHANGE = "CHANGE"
 
-let change = (size) => {
+let change = (selectedId) => {
   return {
     type: CHANGE,
-    size
+    selectedId
   }
 }
 
