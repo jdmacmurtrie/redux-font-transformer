@@ -36,9 +36,20 @@ const App = props => {
   )
 
   return (
-    <div className="goodStuff" >
-      {allClickables}
-      <AddClickableForm addClickable={props.addClickable}/>
+    <div>
+      <h2 className="headline">Redux Font Transformer</h2>
+      <div className="mutator-container">
+        <h4 className="clickables-title">My Clickables</h4>
+        <hr/>
+        <div className="clickables">
+          {allClickables}
+        </div>
+        <AddClickableForm addClickable={props.addClickable}/>
+      </div>
+      <h4 className="tagline">
+        Tap a clickable to change get fancy,
+        or add another!
+      </h4>
     </div>
   );
 }

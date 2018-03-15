@@ -1,7 +1,6 @@
 import React from 'react'
 import { Field, reduxForm, SubmissionError, reset, dispatch } from 'redux-form'
 
-
 const renderField = ({ type, label, input, meta: { touched, error }}) => (
   <div className="input-row">
     <label>{label}</label>
@@ -29,15 +28,13 @@ let AddClickableForm = ({ handleSubmit, addClickable }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <Field name="clickable" label='Add Clickable' component={renderField} type="text" />
+    <form onSubmit={handleSubmit(submit)} className="clickable-form">
+      <Field name="clickable" component={renderField} type="text" />
       <button type="submit">Submit</button>
     </form>
   )
 }
 
-AddClickableForm = reduxForm({
-  form: 'addClickable'
-})(AddClickableForm)
+AddClickableForm = reduxForm({ form: 'addClickable' })(AddClickableForm)
 
 export default AddClickableForm
