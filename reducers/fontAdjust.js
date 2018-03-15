@@ -1,11 +1,11 @@
-import { CHANGE } from '../actions/sizeAdjust'
+import { CHANGE } from '../actions/fontAdjust'
 
 let initialState = {
-  size: 'normal',
+  font: 'print',
   selected: null
 }
 
-const sizeAdjust = (state = initialState, action) => {
+const fontAdjust = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE:
       return Object.assign({}, state, {
@@ -16,4 +16,4 @@ const sizeAdjust = (state = initialState, action) => {
   }
 }
 
-export default sizeAdjust
+export default fontAdjust

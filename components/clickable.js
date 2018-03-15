@@ -2,7 +2,7 @@ import React from 'react'
 
 const Clickable = props => {
   let clickHandler = () => {
-    props.handleSizeChange(props.id)
+    props.handleFontChange(props.id)
   }
 
   return(
